@@ -1,0 +1,213 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* 스크롤바 제거 */
+    font-family: sans-serif; /* 기본 폰트 */
+    background-color: #000; /* 배경 이미지 로딩 전 검은색 */
+}
+
+.game-ui-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: white; /* 기본 텍스트 색상 */
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지 비율 유지하며 꽉 채우기 */
+    z-index: -1; /* 다른 요소들 뒤로 보내기 */
+    opacity: 0.8; /* 약간 어둡게 */
+}
+
+/* --- 레이아웃 --- */
+.top-bar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    /* background-color: rgba(0, 0, 0, 0.3); */ /* 필요시 배경 추가 */
+    z-index: 10;
+}
+
+.left-sidebar {
+    position: absolute;
+    left: 10px;
+    top: 80px; /* top-bar 아래 */
+    bottom: 80px; /* bottom-nav 위 */
+    width: 150px; /* 너비 조절 필요 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 좌측 정렬 */
+    padding: 10px;
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    z-index: 10;
+}
+
+.right-sidebar {
+    position: absolute;
+    right: 10px;
+    top: 80px;
+    bottom: 80px;
+    width: 120px; /* 너비 조절 필요 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 우측 정렬 */
+    padding: 10px;
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    z-index: 10;
+}
+
+.bottom-nav {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* 가운데 정렬 */
+    display: flex;
+    gap: 15px; /* 버튼 사이 간격 */
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+.center-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%; /* 대략적인 너비 */
+    height: 60%; /* 대략적인 높이 */
+    /* background-color: rgba(255, 0, 0, 0.1); */ /* 영역 확인용 */
+    z-index: 5; /* 사이드바보다는 뒤, 배경보다는 앞 */
+}
+
+
+/* --- UI 요소 스타일 --- */
+.clickable {
+    cursor: pointer;
+    transition: transform 0.1s ease, filter 0.1s ease; /* 클릭 효과를 위한 전환 */
+    border: none;
+    background: rgba(0, 0, 0, 0.5); /* 기본 배경 */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 8px; /* 요소 간 간격 */
+    font-size: 14px;
+    text-align: center;
+}
+
+/* 클릭 효과 */
+.clickable:active {
+    transform: scale(0.97); /* 약간 작아짐 */
+    filter: brightness(0.7); /* 약간 어두워짐 */
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc; /* 임시 아이콘 */
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.resources .resource {
+    margin-left: 15px;
+    background-color: rgba(0,0,0,0.7);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.top-right-icons .icon {
+    font-size: 24px;
+    margin-left: 15px;
+    background: none;
+    padding: 0;
+}
+.top-right-icons .banner {
+    background-color: #e74c3c;
+    padding: 5px 10px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+
+.left-sidebar .menu-item,
+.right-sidebar .menu-item {
+    width: 100%; /* 사이드바 너비에 맞춤 */
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 10px;
+}
+.right-sidebar .menu-item {
+    text-align: right;
+}
+
+.arrow {
+    position: absolute;
+    bottom: 10px; /* 위치 조정 필요 */
+    font-size: 20px;
+    padding: 5px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 3px;
+}
+.left-arrow { left: 10px; }
+.right-arrow { right: 10px; }
+
+.bottom-nav .nav-item {
+    padding: 15px 25px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 16px;
+    min-width: 100px;
+}
+
+/* 중앙 컨텐츠 버튼들 (위치 조정 필요) */
+.center-button {
+    position: absolute;
+    padding: 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+    min-width: 150px;
+}
+.center-button span {
+    font-size: 12px;
+    font-weight: normal;
+    display: block; /* 줄바꿈 */
+    opacity: 0.8;
+}
+
+/* 각 버튼의 대략적인 위치 (상대 위치 및 transform 사용) */
+.shop { top: 5%; left: 5%; }
+.outpost { top: 40%; left: 5%; }
+.ark { top: 5%; right: 5%; }
+.dispatch { bottom: 5%; right: 5%; }
+
+/* 메인 컨텐츠 전환 효과 */
+#main-content.fade-out {
+    transition: opacity 0.3s ease-out;
+    opacity: 0;
+}
+
+#loading-message {
+    transition: opacity 0.3s ease-in;
+}
